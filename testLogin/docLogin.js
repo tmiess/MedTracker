@@ -55,40 +55,34 @@ $("#docSubmit").click(function docSignUp() {
         // Sign in with email and pass.
         // [START createwithemail]
         firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // [START_EXCLUDE]
-            if (errorCode == 'auth/weak-password') {
-              alert('The password is too weak.');
-            }
-            else {
-              alert(errorMessage);
-            }
-            console.log(error);
-            // [END_EXCLUDE]
-          })
-          .then(newUsers => {
-            var allUsers = {
-              fullName,
-              phoneNumber,
-              email,
-              password,
-              // UID: uid,
-              timeAdded: firebase.database.ServerValue.TIMESTAMP
-            };
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // [START_EXCLUDE]
+          if (errorCode == 'auth/weak-password') {
+            alert('The password is too weak.');
+          }
+          else {
+            alert(errorMessage);
+          }
+          console.log(error);
+          // [END_EXCLUDE]
+          // })
+          // .then(newUsers => {
+          //   var allUsers = {
+          //     fullName,
+          //     phoneNumber,
+          //     email,
+          //     password,
+          //     // UID: uid,
+          //     timeAdded: firebase.database.ServerValue.TIMESTAMP
+          //   };
 
-            firebase.database().ref('users/' + newUsers.uid).set(allUsers);
+          //   firebase.database().ref('users/' + newUsers.uid).set(allUsers);
 
-            console.log("Welcome User: " + allUsers.fullName);
-          });
-        var form = document.getElementById("registerForm");
-        form.reset();
-
-        $("#aboutWindow").hide();
-        // $("#loginWindow").show();
-        $("#hideSignOut").show();
+          //   console.log("Welcome User: " + allUsers.fullName);
+          // });
 
 
-        // [END createwithemail]
-      });
+          // [END createwithemail]
+        });
