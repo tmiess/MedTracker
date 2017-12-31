@@ -16,7 +16,7 @@ module.exports = function(app) {
             doc_email: req.body.doc_email,
             doc_uid: req.body.doc_uid
         }).then(function(newDoctor) {
-            res.sendFile(path.join(__dirname, ".", "html-routes/docHome.html"));
+            res.sendFile(path.join(__dirname, ".", "docHome.html"));
         });
     });
 
@@ -30,7 +30,7 @@ module.exports = function(app) {
             visit_reason: req.body.visit_reason,
             pat_uid: req.body.pat_uid
         }).then(function(newPatient) {
-            res.sendFile(path.join(__dirname, ".", "html-routes/patHome.html"));
+            res.sendFile(path.join(__dirname, ".", "patHome.html"));
         });
     });
 

@@ -21,9 +21,9 @@ $(function() {
     today: 'Today',
     clear: 'Clear',
     close: 'Ok',
-    closeOnSelect: false,
+    closeOnSelect: true,
     selectMonths: true,
-    selectYears: true,
+    selectYears: 100,
     min: d,
     max: new Date()
   });
