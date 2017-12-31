@@ -18,7 +18,9 @@
   "homepage": "https://github.com/tmiess/MedTracker#readme",
   "dependencies": {
     "angular": "^1.6.7",
+    "angular-bootstrap-calendar": "^0.30.0",
     "body-parser": "^1.18.2",
+    "bootstrap": "^3.3.7",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "method-override": "^2.3.10",

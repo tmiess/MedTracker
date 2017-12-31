@@ -29,8 +29,15 @@ html {
     sans-serif;
 }
 
+#hiddenLogo {
+    padding-left: 20px;
+    display: block;
+    margin: auto;
+
+}
+
 #headerLogo {
-    padding-top: 10px;
+    padding: 1px;
 }
 
 font-family: 'Nunito',

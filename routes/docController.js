@@ -1,37 +1,27 @@
-var express = require("express");
-
-var router = express.Router();
+// var express = require("express");
+// var router = express.Router();
 var db = require("../models/");
 var path = require("path");
 
 
 module.exports = function(app) {
-    router.get("/", function(req, res) {
+    app.get("/", function(req, res) {
         res.sendFile(path.join(__dirname, "..", "index.html"));
     });
 
-
-    // router.get("/burgers", function(req, res) {
-    //     db.Burger.findAll()
-    //         .then(function(allBurgers) {
-    //             var hbsObject = { burger: allBurgers };
-    //             return res.render("index", hbsObject);
-    //         });
-    // });
-
     //Doctor Form Submit to Table
-    router.post("/doctor", function(req, res) {
+    app.post("/doctor", function(req, res) {
         db.Doctor.create({
             full_name: req.body.full_name,
             doc_email: req.body.doc_email,
             doc_uid: req.body.doc_uid
         }).then(function(newDoctor) {
-            res.sendFile(path.join(__dirname, ".", "docHome.html"));
+            res.sendFile(path.join(__dirname, ".", "html-routes/docHome.html"));
         });
     });
 
     //Patient Form Submit to Table
-    router.post("/patient", function(req, res) {
+    app.post("/patient", function(req, res) {
         db.Patient.create({
             full_name: req.body.full_name,
             pat_email: req.body.pat_email,
@@ -40,7 +30,7 @@ module.exports = function(app) {
             visit_reason: req.body.visit_reason,
             pat_uid: req.body.pat_uid
         }).then(function(newPatient) {
-            res.sendFile(path.join(__dirname, ".", "patHome.html"));
+            res.sendFile(path.join(__dirname, ".", "html-routes/patHome.html"));
         });
     });
 

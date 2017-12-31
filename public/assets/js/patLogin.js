@@ -91,6 +91,7 @@ $(function() {
       }
     });
   }
+
   var gender;
   $(":radio[name=gender]").change(function() {
     gender = this.value;
@@ -162,6 +163,7 @@ $(function() {
       console.log(error);
       // [END_EXCLUDE]
     });
+    initAuth();
   });
 
 
