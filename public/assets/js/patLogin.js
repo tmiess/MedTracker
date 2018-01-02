@@ -2,6 +2,8 @@
 /* global Firebase */
 $(function() {
   $('.modal').modal();
+  $('select').material_select();
+
 
   // Initialize Firebase
   var patConfig = {
@@ -63,6 +65,7 @@ $(function() {
       // [END_EXCLUDE]
     }).then(function() {
       initAuth();
+      getDoctors();
 
     });
   });
@@ -82,6 +85,8 @@ $(function() {
         console.log("Current Logged in User ID: " + patId);
         $("#patFormId").attr("value", patId);
         $("#patFormEmail").attr("value", userEmail);
+
+        // createDoctorSelect();
 
 
       }
@@ -165,6 +170,50 @@ $(function() {
     });
     initAuth();
   });
+
+  var docList = $("#docSelect");
+
+
+  // Function for retrieving authors and getting them ready to be rendered to the page
+  function getDoctors() {
+    $.get("/api/doctors", function(data) {
+      var optToAdd = [];
+      for (var i = 0; i < data.length; i++) {
+        optToAdd.push(createDoctorSelect(data[i]));
+      }
+      renderDoctorList(optToAdd);
+      $('select').material_select();
+      // nameInput.val("");
+    });
+  }
+
+  // A function for rendering the list of authors to the page
+  function renderDoctorList(opt) {
+    // docList.children().not(":last").remove();
+    // authorContainer.children(".alert").remove();
+
+    if (opt.length) {
+      // console.log(opt);
+      // console.log(opt[0][0].attributes[1].value);
+      // console.log(opt[1][0].attributes[1].value);
+      // console.log(opt[2][0].attributes[1].value);
+      for (var i = 0; i < opt.length; i++)
+        docList.prepend("<option>" + opt[i][0].attributes[1].value + "</option>");
+    }
+    else {
+      // renderEmpty();
+    }
+  }
+
+
+  // Function for creating a new list row for authors
+  function createDoctorSelect(docName) {
+
+    var newOpt = $("<option>", docName, "</option>");
+
+    return newOpt;
+  }
+
 
 
 

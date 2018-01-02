@@ -34,6 +34,18 @@ module.exports = function(app) {
         });
     });
 
+    app.get("/api/doctors", function(req, res) {
+        // Here we add an "include" property to our options in our findAll query
+        // We set the value to an array of the models we want to include in a left outer join
+        // In this case, just db.Post
+        db.Doctor.findAll({
+            full_name: req.body.full_name
+            // include: [db.Post]
+        }).then(function(docName) {
+            res.json(docName);
+        });
+    });
+
 
     // router.put("/burgers/update/:id", function(req, res) {
     //     db.Burger.update({
