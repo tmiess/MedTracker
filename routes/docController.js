@@ -28,9 +28,30 @@ module.exports = function(app) {
             bday: req.body.bday,
             gender: req.body.gender,
             visit_reason: req.body.visit_reason,
-            pat_uid: req.body.pat_uid
+            pat_uid: req.body.pat_uid,
+            DoctorId: req.body.DoctorId
         }).then(function(newPatient) {
             res.sendFile(path.join(__dirname, ".", "patHome.html"));
+        });
+    });
+
+    app.get("/api/doctors/:id/patients", function(req, res) {
+        db.Patient.findOne({
+            where: {
+                DoctorId: req.params.id
+            }
+        }).then(function(patients) {
+            res.json(patients);
+        });
+    });
+
+    app.get("/api/doctors/:firebaseId", function(req, res) {
+        db.Doctor.findOne({
+            where: {
+                doc_uid: req.params.firebaseId
+            }
+        }).then(function(doc) {
+            res.json(doc);
         });
     });
 

@@ -1,5 +1,6 @@
 /* global firebase */
 /* global Firebase */
+var patId;
 $(function() {
   $('.modal').modal();
   $('select').material_select();
@@ -64,38 +65,38 @@ $(function() {
       console.log(error);
       // [END_EXCLUDE]
     }).then(function() {
-      initAuth();
+      // initAuth();
       getDoctors();
 
     });
   });
 
-  var patId;
+
   var userEmail;
 
-  function initAuth() {
-    // Listening for auth state changes.
-    // [START authstatelistener]
-    patConfig.auth().onAuthStateChanged(function(user) {
+  // function initAuth() {
+  // Listening for auth state changes.
+  // [START authstatelistener]
+  patConfig.auth().onAuthStateChanged(function(user) {
 
-      if (user) {
-        // User is signed in.
-        patId = user.uid;
-        userEmail = user.email;
-        console.log("Current Logged in User ID: " + patId);
-        $("#patFormId").attr("value", patId);
-        $("#patFormEmail").attr("value", userEmail);
+    if (user) {
+      // User is signed in.
+      patId = user.uid;
+      userEmail = user.email;
+      console.log("Current Logged in User ID: " + patId);
+      $("#patFormId").attr("value", patId);
+      $("#patFormEmail").attr("value", userEmail);
 
-        // createDoctorSelect();
+      // createDoctorSelect();
 
 
-      }
-      else {
-        // User is signed out.
-        console.log("No User present.");
-      }
-    });
-  }
+    }
+    else {
+      // User is signed out.
+      console.log("No User present.");
+    }
+  });
+  // }
 
   var gender;
   $(":radio[name=gender]").change(function() {
@@ -117,6 +118,9 @@ $(function() {
 
     var patFormId = $("#patFormId").val().trim();
 
+    var DoctorId = $("#docSelect").val();
+    console.log(DoctorId);
+
     function getPatId() {
       $.ajax({
         method: "POST",
@@ -127,7 +131,8 @@ $(function() {
           bday: bday,
           gender: gender,
           visit_reason: visit_reason,
-          pat_uid: patId
+          pat_uid: patId,
+          DoctorId: DoctorId
         }
       }).done(function(data) {
         console.log("Patient UID = " + patId);
@@ -168,7 +173,7 @@ $(function() {
       console.log(error);
       // [END_EXCLUDE]
     });
-    initAuth();
+    // initAuth();
   });
 
   var docList = $("#docSelect");
@@ -193,12 +198,12 @@ $(function() {
     // authorContainer.children(".alert").remove();
 
     if (opt.length) {
-      // console.log(opt);
-      // console.log(opt[0][0].attributes[1].value);
+      console.log(opt);
+      console.log(opt[0][0].attributes[0].value);
       // console.log(opt[1][0].attributes[1].value);
       // console.log(opt[2][0].attributes[1].value);
       for (var i = 0; i < opt.length; i++)
-        docList.prepend("<option>" + opt[i][0].attributes[1].value + "</option>");
+        docList.prepend("<option value='" + opt[i][0].attributes[0].value + "'>" + opt[i][0].attributes[1].value + "</option>");
     }
     else {
       // renderEmpty();

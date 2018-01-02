@@ -1,5 +1,8 @@
 /* global firebase */
 /* global Firebase */
+console.log("loaded");
+var docSequelizeId;
+
 $(function() {
   $('.modal').modal();
 
@@ -55,34 +58,41 @@ $(function() {
 
       // [END_EXCLUDE]
     }).then(function() {
-      initAuth();
+      // initAuth();
     });
 
   });
 
 
 
-  function initAuth() {
-    // Listening for auth state changes.
-    // [START authstatelistener]
-    docConfig.auth().onAuthStateChanged(function(user) {
+  // function initAuth() {
+  // Listening for auth state changes.
+  // [START authstatelistener]
+  docConfig.auth().onAuthStateChanged(function(user) {
 
-      if (user) {
-        // User is signed in.
-        docId = user.uid;
-        userEmail = user.email;
-        // getLocation();
-        console.log("Current Logged in User ID: " + docId);
-        $("#docFormId").attr("value", docId);
-        $("#docFormEmail").attr("value", userEmail);
+    if (user) {
+      // User is signed in.
+      docId = user.uid;
+      userEmail = user.email;
+      // getLocation();
+      console.log("Current Logged in User ID: " + docId);
+      $("#docFormId").attr("value", docId);
+      $("#docFormEmail").attr("value", userEmail);
+      $.ajax({
+        url: "/api/doctors/" + user.uid,
+        method: "GET"
+      }).done(function(doc) {
+        console.log(doc);
+        docSequelizeId = doc.id;
+      });
 
-      }
-      else {
-        // User is signed out.
-        console.log("No User present.");
-      }
-    });
-  }
+    }
+    else {
+      // User is signed out.
+      console.log("No User present.");
+    }
+  });
+  // }
 
 
   $("#docFormSubmit").click(function docTablePush() {
